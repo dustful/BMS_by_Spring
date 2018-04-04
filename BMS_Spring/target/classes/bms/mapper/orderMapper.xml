@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="bms.mvc.spring.persistence.OrderDAO">
+
+	<!-- 전체 주문수 조회 -->
+	<select id="getOrderTotal" resultType="int">
+		SELECT COUNT(*) FROM BMS_ORDER WHERE ROWID IN (SELECT MAX(ROWID) FROM BMS_ORDER GROUP BY ODREF)
+	</select>
+	
+	<!-- 주문 목록 조회 -->
+	<select id="getOrders" resultType="bms.mvc.spring.domain.OrderVO" parameterType="java.util.Map">
+		SELECT * FROM (SELECT BO.ODREF, BO.MBNO, BO.ODSTAT, COUNT(BO.ODREF) CNTREF, SUM(BB.BKPRICE * BO.ODQTY) SUMPRICE, BO.ODREGDATE, ROW_NUMBER() OVER(ORDER BY BO.ODREGDATE DESC) AS RN FROM BMS_ORDER BO JOIN BMS_BOOK BB ON BO.BKNO = BB.BKNO GROUP BY BO.ODREF, BO.ODREGDATE, BO.ODSTAT, BO.MBNO HAVING COUNT(BO.ODREF) > 0) ODRES JOIN BMS_MEMBER BM ON ODRES.MBNO = BM.MNO WHERE RN BETWEEN #{beginNum} AND #{endNum}
+	</select>
+	
+	<!-- 주문 상세 조회 -->
+	<select id="getOrder" resultType="hashmap" parameterType="int">
+		SELECT * FROM BMS_ORDER BO JOIN BMS_BOOK BB ON BO.BKNO = BB.BKNO WHERE BO.ODREF = #{orgnum}
+	</select>
+	
+	<!-- 주문 번호 생성 -->
+	<select id="getOrderNextval" resultType="int">
+		SELECT ORDER_SEQ.NEXTVAL FROM DUAL
+	</select>
+	
+	<!-- 주문 등록 -->
+	<insert id="postOrder" parameterType="bms.mvc.spring.domain.OrderVO">
+		INSERT INTO BMS_ORDER(ODNO, ODREF, ODNAME, ODCONTACT, RCNAME, RCCONTACT, RCADDR, PYMD, BKNO, ODQTY, MBNO) VALUES(ORDER_SEQ.NEXTVAL, #{odref}, #{odname}, #{odcontact}, #{rcname}, #{rccontact}, #{rcaddr}, #{pymd}, #{bkno}, #{odqty}, #{mbno})
+	</insert>
+	
+	<!-- 주문 상태 수정 -->
+	<update id="putOrderStat" parameterType="bms.mvc.spring.domain.OrderVO">
+		UPDATE BMS_ORDER SET ODSTAT = #{odstat} WHERE ODNO = #{odno}
+	</update>
+	
+	<!-- 주문 삭제 -->
+	<delete id="deleteOrder" parameterType="int">
+		DELETE FROM BMS_ORDER WHERE ODNO = #{odno}
+	</delete>
+
+</mapper>

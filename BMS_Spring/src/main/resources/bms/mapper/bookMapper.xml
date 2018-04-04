@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="bms.mvc.spring.persistence.BookDAO">
+
+	<!-- 전체 도서수 조회 -->
+	<select id="getBookTotal" resultType="int">
+		SELECT COUNT(*) FROM BMS_BOOK
+	</select>
+	
+	<!-- 도서 목록 조회 -->
+	<select id="getBooks" resultType="bms.mvc.spring.domain.BookVO" parameterType="java.util.Map">
+		SELECT * FROM (SELECT BB.*, ROW_NUMBER() OVER(ORDER BY BKNO DESC) AS RN FROM BMS_BOOK BB) WHERE RN BETWEEN #{beginNum} AND #{endNum}
+	</select>
+	
+	<!-- 도서 상세 조회 -->
+	<select id="getBook" resultType="bms.mvc.spring.domain.BookVO" parameterType="int">
+		SELECT * FROM BMS_BOOK WHERE BKNO = #{bkno}
+	</select>
+	
+	<!-- 도서 등록 -->
+	<insert id="postBook" parameterType="bms.mvc.spring.domain.BookVO">
+		INSERT INTO BMS_BOOK(BKNO, BKNAME, BKIMG, BKAUTHOR, BKPUBLISHER, BKPRICE, BKQTY, BKCONTENT) VALUES(BOOK_SEQ.NEXTVAL, #{bkname}, #{bkimg}, #{bkauthor}, #{bkpublisher}, #{bkprice}, #{bkqty}, #{bkcontent})
+	</insert>
+	
+	<!-- 도서 수정 -->
+	<update id="putBook" parameterType="bms.mvc.spring.domain.BookVO">
+		UPDATE BMS_BOOK SET BKNAME = #{bkname}, BKIMG = #{bkimg}, BKAUTHOR = #{bkauthor}, BKPUBLISHER = #{bkpublisher}, BKPRICE = #{bkprice}, BKQTY = #{bkqty}, BKCONTENT = #{bkcontent} WHERE BKNO = #{bkno}
+	</update>
+	
+	<!-- 도서 수량 수정 -->
+	<update id="putBookQty" parameterType="bms.mvc.spring.domain.BookVO">
+		UPDATE BMS_BOOK SET BKQTY = #{bkqty} WHERE BKNO = #{bkno}
+	</update>
+	
+	<!-- 도서 삭제 -->
+	<delete id="deleteBook" parameterType="int">
+		DELETE FROM BMS_BOOK WHERE BKNO = #{bkno}
+	</delete>
+
+</mapper>
