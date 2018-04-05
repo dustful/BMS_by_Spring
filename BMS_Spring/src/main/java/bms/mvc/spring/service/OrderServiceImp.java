@@ -118,6 +118,8 @@ public class OrderServiceImp implements OrderService {
 			case ServiceCode.CUSTOMER_ORDER_DETAIL:
 				ArrayList<Map<Integer, String>> orders = dao.getOrder(orgNum);
 				
+				model.addAttribute("includedDeliveryCharge", ServiceCode.INCLUDED_DELIVERY_CHARGE);
+				model.addAttribute("deliveryCharge", ServiceCode.DELIVERY_CHARGE);
 				model.addAttribute("orders", orders);
 				break;
 			case ServiceCode.CUSTOMER_ORDER_FORM:
@@ -297,6 +299,7 @@ public class OrderServiceImp implements OrderService {
 	}
 
 	// 주문 상태 수정
+	// 작업중
 	@Override
 	public void updateOrderStat(Model model) throws Exception {
 		Map<String, Object> map = model.asMap();
@@ -304,13 +307,51 @@ public class OrderServiceImp implements OrderService {
 		
 		int orderNo = Integer.parseInt(req.getParameter("orderNo"));
 		int orderStat = Integer.parseInt(req.getParameter("orderStat"));
-		int result = 0;
 		OrderVO vo = new OrderVO();
+		Map<String, Object> daoMap = null;
+		daoMap = new HashMap<String, Object>();
+		ArrayList<Map<Integer, String>> orders = dao.getOrder(orderNo);
 		
-		vo.setOdstat(orderStat);
-		vo.setOdno(orderNo);
-		
-		result = dao.putOrderStat(vo);
+		if(orderStat == 1 || orderStat == 6) {
+			// 주문 취소 또는 환불 승인 상태일 경우
+			for(int i = 0; i < orders.size(); i++) {
+				// 주문 정보에 부속된 상품의 주문 수량을 상품의 재고 수량과 합산
+				int bkno = Integer.parseInt(String.valueOf(orders.get(i).get("BKNO")));
+				int bkqty = Integer.parseInt(String.valueOf(orders.get(i).get("BKQTY")));
+				int odqty = Integer.parseInt(String.valueOf(orders.get(i).get("ODQTY")));
+				int result = bkqty + odqty;
+				
+				daoMap.put("bkno", bkno);
+				daoMap.put("bkqty", result);
+				
+				// 합산 내용을 반영
+				bDAO.putBookQty(daoMap);
+			}
+			
+			vo.setOdstat(orderStat);
+			vo.setOdref(orderNo);
+			
+			dao.putOrderStat(vo);
+		} else {
+			for(int i = 0; i < orders.size(); i++) {
+				// 주문 정보에 부속된 상품의 주문 수량을 상품의 재고 수량에서 감산
+				int bkno = Integer.parseInt(String.valueOf(orders.get(i).get("BKNO")));
+				int bkqty = Integer.parseInt(String.valueOf(orders.get(i).get("BKQTY")));
+				int odqty = Integer.parseInt(String.valueOf(orders.get(i).get("ODQTY")));
+				int result = bkqty - odqty;
+				
+				daoMap.put("bkno", bkno);
+				daoMap.put("bkqty", result);
+				
+				// 감산 내용을 반영
+				bDAO.putBookQty(daoMap);
+			}
+			
+			vo.setOdstat(orderStat);
+			vo.setOdref(orderNo);
+			
+			dao.putOrderStat(vo);
+		}
 	}
 
 	// 주문 삭제
@@ -321,9 +362,8 @@ public class OrderServiceImp implements OrderService {
 		HttpServletRequest req = (HttpServletRequest) map.get("req");
 		
 		int orgnum = Integer.parseInt(req.getParameter("orgnum"));
-		int result = 0;
 		
-		result = dao.deleteOrder(orgnum);
+		dao.deleteOrder(orgnum);
 	}
 
 }

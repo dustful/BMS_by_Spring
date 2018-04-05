@@ -12,7 +12,8 @@
 	
 	<!-- Header -->
 	<%@ include file="../../common/header.jsp" %>
-	
+
+	<c:if test="${sessionScope.mno != null}">	
 	<section id="sellerOrderDetail">
 		<article>
 			<div class="row">
@@ -34,9 +35,10 @@
 					</div>
 					
 					<form method="post" id="updateOrderStatForm" class="pull-right">
-						<input type="hidden" name="orderNo" id="orderNo" value="${orders[0].ODNO}">
+						<input type="hidden" name="orderNo" id="orderNo" value="${orders[0].ODREF}">
 						<select class="form-control" name="orderStat" id="orderStat">
 							<option>주문 상태 변경</option>
+							<option value="0" ${orders[0].ODSTAT == 0? "selected":""}>주문 완료</option>
 							<option value="2" ${orders[0].ODSTAT == 2? "selected":""}>결제 확인</option>
 							<option value="3" ${orders[0].ODSTAT == 3? "selected":""}>발송 완료</option>
 							<option value="4" ${orders[0].ODSTAT == 4? "selected":""}>배송 완료</option>
@@ -182,6 +184,7 @@
 			</div>
 		</article>	
 	</section>
+	</c:if>
 	
 	<!-- Footer -->
 	<%@ include file="../../common/footer.jsp" %>

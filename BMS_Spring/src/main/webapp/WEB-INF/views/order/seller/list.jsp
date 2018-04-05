@@ -60,6 +60,7 @@
 									<tr>
 										<td class="text-center">
 											${num}
+											<%-- ${fn:length(orders)} --%>
 											<c:set var="num" value="${num - 1}" />
 										</td>
 										<td class="text-center">${order.odref}</td>

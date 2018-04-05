@@ -30,7 +30,7 @@
 	
 	<!-- 주문 상태 수정 -->
 	<update id="putOrderStat" parameterType="bms.mvc.spring.domain.OrderVO">
-		UPDATE BMS_ORDER SET ODSTAT = #{odstat} WHERE ODNO = #{odno}
+		UPDATE BMS_ORDER SET ODSTAT = #{odstat} WHERE ODREF = #{odref}
 	</update>
 	
 	<!-- 주문 삭제 -->

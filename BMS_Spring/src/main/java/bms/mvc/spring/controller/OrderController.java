@@ -96,7 +96,6 @@ public class OrderController {
 	}
 	
 	// 주문 상태 수정
-	// 뷰와 연동할 것
 	@RequestMapping(value = "updateOrderStat", method = {RequestMethod.GET, RequestMethod.POST})
 	public String updateOrderStat(HttpServletRequest req, Model model) throws Exception {
 		System.out.println("updateOrderStat");
@@ -109,6 +108,7 @@ public class OrderController {
 	
 	// 판매자 > 주문 삭제
 	// 뷰와 연동할 것
+	// 확인 요망
 	@RequestMapping(value = "deleteOrder", method = {RequestMethod.GET, RequestMethod.POST})
 	public String deleteOrder(HttpServletRequest req, Model model) throws Exception {
 		System.out.println("deleteOrder");
