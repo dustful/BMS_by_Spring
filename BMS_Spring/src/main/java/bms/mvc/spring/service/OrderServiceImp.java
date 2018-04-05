@@ -299,7 +299,6 @@ public class OrderServiceImp implements OrderService {
 	}
 
 	// 주문 상태 수정
-	// 작업중
 	@Override
 	public void updateOrderStat(Model model) throws Exception {
 		Map<String, Object> map = model.asMap();
