@@ -68,8 +68,8 @@
 											<c:choose>
 												<c:when test="${order.odstat == 0}"><h4><span class="label label-success">주문 완료</span></h4></c:when>
 												<c:when test="${order.odstat == 1}"><h4><span class="label label-default">취소된 주문</span></h4></c:when>
-												<c:when test="${order.odstat == 2}"><h4><span class="label label-warning">결제 확인</span></h4></c:when>
-												<c:when test="${order.odstat == 3}"><h4><span class="label label-info">발송 처리</span></h4></c:when>
+												<c:when test="${order.odstat == 2}"><h4><span class="label label-warning">발송 대기</span></h4></c:when>
+												<c:when test="${order.odstat == 3}"><h4><span class="label label-info">배송중</span></h4></c:when>
 												<c:when test="${order.odstat == 4}"><h4><span class="label label-primary">배송 완료</span></h4></c:when>
 												<c:when test="${order.odstat == 5}"><h4><span class="label label-danger">환불 대기</span></h4></c:when>
 												<c:when test="${order.odstat == 6}"><h4><span class="label label-default">환불 완료</span></h4></c:when>

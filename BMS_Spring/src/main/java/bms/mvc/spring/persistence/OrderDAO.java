@@ -27,5 +27,11 @@ public interface OrderDAO {
 	
 	// 주문 삭제
 	public int deleteOrder(int orgnum);
+	
+	// 판매 총액 조회
+	public int getTotOrder();
+	
+	// 정산 총액 조회
+	public int getSumOrder();
 
 }

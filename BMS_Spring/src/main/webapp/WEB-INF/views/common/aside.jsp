@@ -19,7 +19,7 @@
 					<li class="list-group-item"><a href="memberList">회원관리</a></li>
 					<li class="list-group-item"><a href="sellerBookList">재고관리</a></li>
 					<li class="list-group-item"><a href="sellerOrderList">주문관리</a></li>
-					<li class="list-group-item"><a href="sellerBoardList">게시물관리</a></li>
+					<li class="list-group-item"><a href="#sellerBoardList">게시물관리</a></li>
 				</ul>
 			</div>
 			<!-- 판매자 메뉴 종료 -->

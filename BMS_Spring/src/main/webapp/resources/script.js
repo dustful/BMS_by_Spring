@@ -115,7 +115,7 @@ $(function() {
 			url : "updateOrderStat",
 			data : $("#updateOrderStatForm").serialize(),
 			success : function(data) {
-				$("#sellerOrderDetail").append(data);
+				$("#orderDetail").append(data);
 			}
 		});
 	});

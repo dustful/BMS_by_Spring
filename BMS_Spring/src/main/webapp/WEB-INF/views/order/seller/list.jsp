@@ -31,6 +31,13 @@
 					<div class="page-header">
 						<h1>주문 목록 <small>Order List</small></h1>
 					</div>
+					
+					<div class="well text-center">
+						<div class="row">
+							<div class="col-md-6">판매 총액 : <span class="emphasis"><fmt:formatNumber pattern="#,###" value="${total}"/></span></div>
+							<div class="col-md-6">정산 총액 : <span class="emphasis"><fmt:formatNumber pattern="#,###" value="${sum}"/></span></div>
+						</div>
+					</div>
 			
 					<!-- 주문 목록 출력 시작 -->
 					<c:if test="${tot > 0}">
@@ -74,7 +81,7 @@
 												<c:when test="${order.odstat == 2}"><h4><span class="label label-warning">결제 확인</span></h4></c:when>
 												<c:when test="${order.odstat == 3}"><h4><span class="label label-info">발송 처리</span></h4></c:when>
 												<c:when test="${order.odstat == 4}"><h4><span class="label label-primary">배송 완료</span></h4></c:when>
-												<c:when test="${order.odstat == 5}"><h4><span class="label label-danger">환불 대기</span></h4></c:when>
+												<c:when test="${order.odstat == 5}"><h4><span class="label label-danger">환불 요청</span></h4></c:when>
 												<c:when test="${order.odstat == 6}"><h4><span class="label label-default">환불 완료</span></h4></c:when>
 											</c:choose>
 										</td>

@@ -14,7 +14,7 @@
 	<%@ include file="../../common/header.jsp" %>
 
 	<c:if test="${sessionScope.mno != null}">	
-	<section id="sellerOrderDetail">
+	<section id="orderDetail">
 		<article>
 			<div class="row">
 				<!-- Aside -->
@@ -39,7 +39,8 @@
 						<select class="form-control" name="orderStat" id="orderStat">
 							<option>주문 상태 변경</option>
 							<option value="0" ${orders[0].ODSTAT == 0? "selected":""}>주문 완료</option>
-							<option value="2" ${orders[0].ODSTAT == 2? "selected":""}>결제 확인</option>
+							<option value="1" ${orders[0].ODSTAT == 1? "selected":""}>주문 취소</option>
+							<option value="2" ${orders[0].ODSTAT == 2? "selected":""}>발송 대기</option>
 							<option value="3" ${orders[0].ODSTAT == 3? "selected":""}>발송 완료</option>
 							<option value="4" ${orders[0].ODSTAT == 4? "selected":""}>배송 완료</option>
 							<option value="6" ${orders[0].ODSTAT == 6? "selected":""}>환불 승인</option>

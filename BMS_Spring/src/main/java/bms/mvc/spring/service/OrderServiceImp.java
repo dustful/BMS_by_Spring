@@ -81,7 +81,11 @@ public class OrderServiceImp implements OrderService {
 			daoMap.put("endNum", endNum);
 			
 			ArrayList<OrderVO> orders = dao.getOrders(daoMap);
+			int total = dao.getTotOrder();
+			int sum = dao.getSumOrder();
 			model.addAttribute("orders", orders);
+			model.addAttribute("total", total);
+			model.addAttribute("sum", sum);
 		}
 
 		// 첫 페이지
@@ -307,11 +311,10 @@ public class OrderServiceImp implements OrderService {
 		int orderNo = Integer.parseInt(req.getParameter("orderNo"));
 		int orderStat = Integer.parseInt(req.getParameter("orderStat"));
 		OrderVO vo = new OrderVO();
-		Map<String, Object> daoMap = null;
-		daoMap = new HashMap<String, Object>();
+		Map<String, Object> daoMap = new HashMap<String, Object>();
 		ArrayList<Map<Integer, String>> orders = dao.getOrder(orderNo);
 		
-		if(orderStat == 1 || orderStat == 6) {
+		if((orderStat == 1) || (orderStat == 6)) {
 			// 주문 취소 또는 환불 승인 상태일 경우
 			for(int i = 0; i < orders.size(); i++) {
 				// 주문 정보에 부속된 상품의 주문 수량을 상품의 재고 수량과 합산
@@ -332,7 +335,7 @@ public class OrderServiceImp implements OrderService {
 			
 			dao.putOrderStat(vo);
 		} else {
-			for(int i = 0; i < orders.size(); i++) {
+			/*for(int i = 0; i < orders.size(); i++) {
 				// 주문 정보에 부속된 상품의 주문 수량을 상품의 재고 수량에서 감산
 				int bkno = Integer.parseInt(String.valueOf(orders.get(i).get("BKNO")));
 				int bkqty = Integer.parseInt(String.valueOf(orders.get(i).get("BKQTY")));
@@ -344,7 +347,7 @@ public class OrderServiceImp implements OrderService {
 				
 				// 감산 내용을 반영
 				bDAO.putBookQty(daoMap);
-			}
+			}*/
 			
 			vo.setOdstat(orderStat);
 			vo.setOdref(orderNo);

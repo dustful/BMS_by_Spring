@@ -18,12 +18,12 @@
 					<ul class="nav navbar-nav">
 						<c:if test="${sessionScope.mno == null}">
 						<li><a href="bookList">상품목록</a></li>
-						<li><a href="boardList">고객게시판</a></li>
+						<li><a href="#boardList">고객게시판</a></li>
 						<li><a href="signinForm">로그인</a></li>
 						</c:if>
 						<c:if test="${sessionScope.mno != null}">
 						<li><a href="bookList">상품목록</a></li>
-						<li><a href="boardList">고객게시판</a></li>
+						<li><a href="#boardList">고객게시판</a></li>
 						<li><a href="cartList"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> 장바구니</a></li>
 						<li><a href="myPage"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> ${sessionScope.mname}</a></li>
 						<li><a href="signout">로그아웃</a></li>

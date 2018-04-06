@@ -37,5 +37,15 @@
 	<delete id="deleteOrder" parameterType="int">
 		DELETE FROM BMS_ORDER WHERE ODNO = #{odno}
 	</delete>
+	
+	<!-- 판매 총액 조회 -->
+	<select id="getTotOrder" resultType="int">
+		SELECT MAX(SUMPRICE) FROM (SELECT BO.ODREF, SUM(BB.BKPRICE * BO.ODQTY) SUMPRICE FROM BMS_ORDER BO JOIN BMS_BOOK BB ON BO.BKNO = BB.BKNO GROUP BY ROLLUP(BO.ODREF))
+	</select>
+	
+	<!-- 정산 총액 조회 -->
+	<select id="getSumOrder" resultType="int">
+		SELECT MAX(SUMPRICE) FROM (SELECT BO.ODREF, SUM(BB.BKPRICE * BO.ODQTY) SUMPRICE FROM BMS_ORDER BO JOIN BMS_BOOK BB ON BO.BKNO = BB.BKNO WHERE BO.ODSTAT BETWEEN 2 AND 4 GROUP BY ROLLUP(BO.ODREF))
+	</select>
 
 </mapper>

@@ -14,7 +14,7 @@
 	<%@ include file="../../common/header.jsp" %>
 	
 	<c:if test="${sessionScope.mno != null}">
-	<section id="customerOrderDetail">
+	<section id="orderDetail">
 		<article>
 			<div class="row">
 				<!-- Aside -->
@@ -35,15 +35,18 @@
 					</div>
 					
 					<form method="post" id="updateOrderStatForm" class="pull-right">
-						<input type="hidden" name="orderNo" id="orderNo" value="${orders[0].ODNO}">
+						<input type="hidden" name="orderNo" id="orderNo" value="${orders[0].ODREF}">
 						<select class="form-control" name="orderStat" id="orderStat">
-							<c:if test="${orders[0].ODSTAT < 2}">
-								<option value="0" ${orders[0].ODSTAT == 0? "selected":""}>주문 완료</option>
-								<option value="1" ${orders[0].ODSTAT == 1? "selected":""}>주문 취소</option>
+							<c:if test="${orders[0].ODSTAT == 0}"><option value="0" ${orders[0].ODSTAT == 0? "selected":""}>주문 완료</option></c:if>
+							<c:if test="${(orders[0].ODSTAT == 0) || (orders[0].ODSTAT < 3)}"><option value="1" ${orders[0].ODSTAT == 1? "selected":""}>주문 취소</option></c:if>
+							<c:if test="${orders[0].ODSTAT == 2}"><option value="2" ${orders[0].ODSTAT == 2? "selected":""}>발송 대기</option></c:if>
+							<c:if test="${(orders[0].ODSTAT > 2) && (orders[0].ODSTAT < 5)}">
+								<option value="3" ${orders[0].ODSTAT == 3? "selected":""}>배송중</option>
+								<option value="4" ${orders[0].ODSTAT == 4? "selected":""}>배송 완료</option>
+								<option value="5" ${orders[0].ODSTAT == 5? "selected":""}>환불 요청</option>
 							</c:if>
-							<c:if test="${orders[0].ODSTAT < 6}"><option value="4" ${orders[0].ODSTAT == 4? "selected":""}>배송 완료</option></c:if>
-							<c:if test="${orders[0].ODSTAT > 2 && orders[0].ODSTAT < 6}"><option value="5" ${orders[0].ODSTAT == 5? "selected":""}>환불 요청</option></c:if>
-							<c:if test="${orders[0].ODSTAT == 6}"><option selected>환불 완료</option></c:if>
+							<c:if test="${orders[0].ODSTAT == 5}"><option value="5" ${orders[0].ODSTAT == 5? "selected":""}>환불 대기</option></c:if>
+							<c:if test="${orders[0].ODSTAT == 6}"><option value="6" ${orders[0].ODSTAT == 6? "selected":""}>환불 완료</option></c:if>
 						</select>
 					</form>
 					

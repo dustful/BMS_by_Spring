@@ -92,5 +92,27 @@ public class OrderDAOImp implements OrderDAO {
 		
 		return res;
 	}
+	
+	// 판매 총액 조회
+	@Override
+	public int getTotOrder() {
+		int res = 0;
+		
+		OrderDAO dao = sqlSession.getMapper(OrderDAO.class);
+		res = dao.getTotOrder();
+		
+		return res;
+	}
+	
+	// 정산 총액 조회
+	@Override
+	public int getSumOrder() {
+		int res = 0;
+		
+		OrderDAO dao = sqlSession.getMapper(OrderDAO.class);
+		res = dao.getSumOrder();
+		
+		return res;
+	}
 
 }

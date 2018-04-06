@@ -35,7 +35,6 @@ public class BookController {
 		return "redirect:sellerBookList";
 	}
 	
-	
 	// 판매자 > 재고 목록
 	@RequestMapping(value = "sellerBookList", method = {RequestMethod.GET})
 	public String sellerBookList(HttpServletRequest req, Model model) throws Exception {

@@ -25,8 +25,8 @@
 				</div>
 				<div class="modal-body"></div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">계속 보기</button>
-					<button type="button" class="btn btn-primary" onClick="location.href = 'sellerOrderList'">주문 목록으로 이동</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+					<!-- <button type="button" class="btn btn-primary" onClick="location.href = 'orderList'">주문 목록으로 이동</button> -->
 				</div>
 			</div>
 		</div>

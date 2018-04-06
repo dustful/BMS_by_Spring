@@ -17,7 +17,7 @@
 		<article>
 			<div class="jumbotron">
 				<h2>주문이 완료되었습니다.</h2>
-				<p>자세한 사항은 주문내역에서 확인하세요.</p>
+				<p>자세한 사항은 주문 관리에서 확인하세요.</p>
 				<button class="btn btn-primary" type="button" onClick="location.href = 'orderList'">주문내역확인</button>
 				<button class="btn btn-default" type="button" onClick="location.href = 'bookList'">쇼핑 계속하기</button>
 			</div>
