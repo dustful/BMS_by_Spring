@@ -26,6 +26,17 @@ public class OrderDAOImp implements OrderDAO {
 		
 		return tot;
 	}
+	
+	// 필터링된 전체 주문수 조회
+	@Override
+	public int getWhereOrderTotal(int odstat) {
+		int tot = 0;
+		
+		OrderDAO dao = sqlSession.getMapper(OrderDAO.class);
+		tot = dao.getWhereOrderTotal(odstat);
+		
+		return tot;
+	}
 
 	// 주문 목록 조회
 	@Override
@@ -34,6 +45,17 @@ public class OrderDAOImp implements OrderDAO {
 		
 		OrderDAO dao = sqlSession.getMapper(OrderDAO.class);
 		orders = dao.getOrders(daoMap);
+		
+		return orders;
+	}
+	
+	// 필터링된 주문 목록 조회
+	@Override
+	public ArrayList<OrderVO> getWhereOrders(Map<String, Object> daoMap) {
+		ArrayList<OrderVO> orders = null;
+		
+		OrderDAO dao = sqlSession.getMapper(OrderDAO.class);
+		orders = dao.getWhereOrders(daoMap);
 		
 		return orders;
 	}

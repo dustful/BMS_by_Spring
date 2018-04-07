@@ -34,8 +34,20 @@
 					
 					<div class="well text-center">
 						<div class="row">
-							<div class="col-md-6">판매 총액 : <span class="emphasis"><fmt:formatNumber pattern="#,###" value="${total}"/></span></div>
-							<div class="col-md-6">정산 총액 : <span class="emphasis"><fmt:formatNumber pattern="#,###" value="${sum}"/></span></div>
+							<div class="col-md-4">판매 총액 : <span class="emphasis"><fmt:formatNumber pattern="#,###" value="${total}"/></span></div>
+							<div class="col-md-4">정산 총액 : <span class="emphasis"><fmt:formatNumber pattern="#,###" value="${sum}"/></span></div>
+							<div class="col-md-4">
+								<select class="form-control" id="listOrderStat">
+									<option selected>주문 상태 필터</option>
+									<option value="0">주문 완료</option>
+									<option value="1">취소된 주문</option>
+									<option value="2">결제 확인</option>
+									<option value="3">발송 처리</option>
+									<option value="4">배송 완료</option>
+									<option value="5">환불 요청</option>
+									<option value="6">환불 완료</option>
+								</select>
+							</div>
 						</div>
 					</div>
 			
@@ -114,8 +126,8 @@
 							<ul class="pagination">
 								<!-- 처음/이전 블록 -->
 								<c:if test="${beginPage > divPage}">
-									<li><a href="orderList" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
-									<li><a href="orderList?pageNum=${beginPage - divPage}" aria-label="Previous"><span aria-hidden="true">&lt;</span></a></li>
+									<li><a href="sellerOrderList" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+									<li><a href="sellerOrderList?pageNum=${beginPage - divPage}" aria-label="Previous"><span aria-hidden="true">&lt;</span></a></li>
 								</c:if>
 				
 								<c:forEach var="i" begin="${beginPage}" end="${endPage}">
@@ -123,14 +135,14 @@
 										<li><span><b>${i}</b></span></li>
 									</c:if>
 									<c:if test="${i != currPage}">
-										<li><a href="orderList?pageNum=${i}">${i}</a></li>
+										<li><a href="sellerOrderList?pageNum=${i}">${i}</a></li>
 									</c:if>
 								</c:forEach>
 								
 								<!-- 다음/이후 블록 -->
 								<c:if test="${totPage > endPage}">
-									<li><a href="orderList?pageNum=${beginPage + divPage}" aria-label="Next"><span aria-hidden="true">&gt;</span></a></li>
-									<li><a href="orderList?pageNum=${totPage}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
+									<li><a href="sellerOrderList?pageNum=${beginPage + divPage}" aria-label="Next"><span aria-hidden="true">&gt;</span></a></li>
+									<li><a href="sellerOrderList?pageNum=${totPage}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
 								</c:if>
 							</ul>
 						</c:if>

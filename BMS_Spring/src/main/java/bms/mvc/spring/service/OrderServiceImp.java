@@ -30,7 +30,7 @@ public class OrderServiceImp implements OrderService {
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest req = (HttpServletRequest) map.get("req");
 		
-		int divContent = 20; // 보여줄 레코드 수
+		int divContent = 10; // 보여줄 레코드 수
 		int divPage = 5; // 보여줄 페이지 수
 
 		int num = 0; // 출력할 레코드 번호
@@ -46,8 +46,11 @@ public class OrderServiceImp implements OrderService {
 		int endPage = 0; // 끝 페이지
 
 		// ===== 페이지네이션 처리 시작 =====
+		String orderStat = req.getParameter("odstat");
+		
 		// 전체 레코드 수 호출
-		tot = dao.getOrderTotal();
+		if(orderStat == null) tot = dao.getOrderTotal();
+		else tot = dao.getWhereOrderTotal(Integer.parseInt(orderStat));
 
 		// 페이지 번호 호출
 		pageNum = req.getParameter("pageNum");
@@ -80,13 +83,25 @@ public class OrderServiceImp implements OrderService {
 			daoMap.put("beginNum", beginNum);
 			daoMap.put("endNum", endNum);
 			
-			ArrayList<OrderVO> orders = dao.getOrders(daoMap);
-			int total = dao.getTotOrder();
-			int sum = dao.getSumOrder();
+			ArrayList<OrderVO> orders = null;
+			
+			if(orderStat == null) {
+				orders = dao.getOrders(daoMap);
+			} else {
+				// 필터링된 주문 목록
+				daoMap.put("odstat", Integer.parseInt(orderStat));
+				orders = dao.getWhereOrders(daoMap);
+				model.addAttribute("odstat", orderStat);
+			}
+			
 			model.addAttribute("orders", orders);
-			model.addAttribute("total", total);
-			model.addAttribute("sum", sum);
 		}
+		
+		int total = dao.getTotOrder();
+		int sum = dao.getSumOrder();
+		
+		model.addAttribute("total", total);
+		model.addAttribute("sum", sum);
 
 		// 첫 페이지
 		beginPage = (currPage / divPage) * divPage + 1;

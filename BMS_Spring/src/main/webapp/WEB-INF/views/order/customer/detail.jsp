@@ -36,7 +36,7 @@
 					
 					<form method="post" id="updateOrderStatForm" class="pull-right">
 						<input type="hidden" name="orderNo" id="orderNo" value="${orders[0].ODREF}">
-						<select class="form-control" name="orderStat" id="orderStat">
+						<select class="form-control" name="orderStat" id="detailOrderStat">
 							<c:if test="${orders[0].ODSTAT == 0}"><option value="0" ${orders[0].ODSTAT == 0? "selected":""}>주문 완료</option></c:if>
 							<c:if test="${(orders[0].ODSTAT == 0) || (orders[0].ODSTAT < 3)}"><option value="1" ${orders[0].ODSTAT == 1? "selected":""}>주문 취소</option></c:if>
 							<c:if test="${orders[0].ODSTAT == 2}"><option value="2" ${orders[0].ODSTAT == 2? "selected":""}>발송 대기</option></c:if>

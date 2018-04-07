@@ -10,8 +10,14 @@ public interface OrderDAO {
 	// 전체 주문수 조회
 	public int getOrderTotal();
 	
+	// 필터링된 전체 주문수 조회
+	public int getWhereOrderTotal(int odstat);
+	
 	// 주문 목록 조회
 	public ArrayList<OrderVO> getOrders(Map<String, Object> daoMap);
+	
+	// 필터링된 주문 목록 조회
+	public ArrayList<OrderVO> getWhereOrders(Map<String, Object> daoMap);
 	
 	// 주문 상세 조회
 	public ArrayList<Map<Integer, String>> getOrder(int orgnum);

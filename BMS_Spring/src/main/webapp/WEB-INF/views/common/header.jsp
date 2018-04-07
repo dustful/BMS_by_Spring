@@ -34,7 +34,7 @@
 				<div class="collapse navbar-collapse navbar-right" id="searchEntire">
 					<form class="navbar-form" role="search">
 						<div class="input-group">
-							<input type="text" class="form-control" placeholder="검색어를 입력하세요" aria-describedby="addon-search">
+							<input type="text" class="form-control" placeholder="검색할 상품명을 입력하세요" aria-describedby="addon-search">
 							<span class="input-group-btn">
 								<button type="submit" class="btn btn-default" id="addon-search">&nbsp;<span class="glyphicon glyphicon-search" aria-hidden="true"></span>&nbsp;</button>
 							</span>

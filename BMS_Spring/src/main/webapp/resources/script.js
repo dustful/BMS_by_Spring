@@ -107,10 +107,21 @@ $(function() {
 
 
 /*
+ * ========== 판매자 주문 목록 ==========
+ */
+$(function() {
+	$("#listOrderStat").change(function() {
+		url = "sellerOrderList?odstat=" + $("#listOrderStat option:selected").val();
+		$(location).attr("href", url);
+	});
+});
+
+
+/*
  * ========== 구매자/판매자 주문 상세 ==========
  */
 $(function() {
-	$("#orderStat").change(function() {
+	$("#detailOrderStat").change(function() {
 		$.ajax({
 			url : "updateOrderStat",
 			data : $("#updateOrderStatForm").serialize(),
