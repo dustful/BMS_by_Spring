@@ -1,7 +1,7 @@
-# Spring_BMS
+# BMS by Spring
 Welcome!
 
-This is a book management system for bookstore that based on Spring framework.
+This is a book management system for bookstore that based on Spring framework + MyBatis.
 
 ## Development Environment
 - OS : Windows 10(64bit)
